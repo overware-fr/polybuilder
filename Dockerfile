@@ -21,10 +21,11 @@
 # You should have received a copy of the GNU General Public License
 # along with OVCloud. If not, see <http://www.gnu.org/licenses/>.
 ##
-FROM debian:stable
+FROM debian:sid
 LABEL Description="PolyBuilder for Polytech programs" Maintainer="Jeremy HERGAULT, Anthony THOMAS" Vendor="overware" Version="1.0"
 
 RUN export DEBIAN_FRONTEND=noninteractive \
+ && GOPATH=$HOME/go \
  && apt-get -y update && apt-get -y install \
       openssl \
       ca-certificates \
@@ -42,9 +43,13 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       openjdk-11-jdk \
       maven \
       python3-pip \
+      golang-go \
  && apt-get -y clean && apt-get -y autoclean \
  && mkdir -p /opt \
- && pip3 install prometheus-client
+ && pip3 install prometheus-client \
+ && go install github.com/minio/mc@latest \
+ && mv $GOPATH/bin/mc /usr/local/bin \
+ && rm -rf $GOPATH/go/*
 
 WORKDIR /opt
 
