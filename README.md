@@ -13,6 +13,7 @@ It contain:
 Can build language:
  - C/C++
  - Java (with Maven)
+ - Rust
 
 Python packages:
  - prometheus-client

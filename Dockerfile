@@ -44,12 +44,15 @@ RUN export DEBIAN_FRONTEND=noninteractive \
       maven \
       python3-pip \
       golang-go \
+ && curl https://sh.rustup.rs -sSf | sh -s -- -y \
  && apt-get -y clean && apt-get -y autoclean \
  && mkdir -p /opt \
- && pip3 install prometheus-client \
+ && pip3 install prometheus-client --break-system-packages \
  && go install github.com/minio/mc@latest \
  && mv $GOPATH/bin/mc /usr/local/bin \
  && rm -rf $GOPATH/go/*
+
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 WORKDIR /opt
 
