@@ -28,6 +28,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
  && GOPATH=$HOME/go \
  && apt-get -y update && apt-get -y install \
       openssl \
+      libssl-dev \
       ca-certificates \
       procps \
       wget \
